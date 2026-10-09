@@ -6,26 +6,30 @@ The **ESPHome MCP** app runs a Model Context Protocol (MCP) server directly insi
 
 ## 🚀 Getting Started
 
-### 1. Prerequisites
+### 1. Prerequisites (Crucial Step!)
 
-Before starting this app, ensure you have an ESPHome dashboard running:
-- **Official ESPHome Add-on**: If you are using the official ESPHome add-on in Home Assistant OS, ESPHome MCP can connect directly across the internal Docker network.
-- **External ESPHome Dashboard**: If your dashboard runs on another machine or container, ensure it is network-accessible.
+If you are using the official **ESPHome Add-on** in Home Assistant OS:
+By default, the official ESPHome add-on runs in **Ingress-only** mode and its direct dashboard port `6052` is disabled. You must enable it so other services can connect:
+
+1. In Home Assistant, go to **Settings** → **Add-ons** (or **Apps**) → **ESPHome**.
+2. Scroll down to the **Network** card (on the Info or Configuration tab).
+3. In the port input field for `6052/tcp`, type **`6052`** (it is blank/disabled by default).
+4. Click **Save** and then **Restart** the ESPHome add-on.
+5. *(Optional verification)* You should now be able to open `http://<HOME_ASSISTANT_IP>:6052` in your browser.
+
+> [!IMPORTANT]
+> If port `6052` is not enabled in the ESPHome add-on settings, any connection attempts to port 6052 will fail with `All connection attempts failed` or `Connection refused`.
 
 ### 2. Configuration Options
 
-In the **Configuration** tab of this app:
+In the **Configuration** tab of the **ESPHome MCP** app:
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `esphome_dashboard_url` | string | `http://5c53de3a-esphome:6052` | URL of the ESPHome dashboard. For the official ESPHome add-on running on Home Assistant OS, use `http://5c53de3a-esphome:6052`. For external dashboards, enter the full URL (e.g. `http://192.168.1.100:6052` or `https://esphome.example.com`). |
+| `esphome_dashboard_url` | string | `http://127.0.0.1:6052` | URL of the ESPHome dashboard. Because this add-on uses host networking, `http://127.0.0.1:6052` connects directly to the local ESPHome dashboard. For external dashboards on another server, specify the address (e.g. `http://192.168.1.100:6052`). |
 | `esphome_dashboard_username` | string | `""` | Dashboard username (only required if your ESPHome dashboard has Basic Auth enabled). |
 | `esphome_dashboard_password` | password | `""` | Dashboard password (only required if your ESPHome dashboard has Basic Auth enabled). |
 | `log_level` | string | `INFO` | Verbosity of server logs: `DEBUG`, `INFO`, `WARNING`, or `ERROR`. |
-
-### 3. Network Port
-
-By default, the app exposes port **8080** for Streamable HTTP MCP connections. You can change the host port in the **Network** card on the app's Info tab if port 8080 is already used on your Home Assistant host.
 
 ---
 
@@ -45,6 +49,7 @@ Add the following to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "esphome": {
+      "type": "http",
       "url": "http://<HOME_ASSISTANT_IP>:8080/mcp"
     }
   }
@@ -84,8 +89,9 @@ In your MCP settings, add an HTTP / SSE server:
 
 ## 🔍 Troubleshooting
 
-### Cannot connect to ESPHome dashboard
-1. Ensure the ESPHome add-on is started and healthy.
-2. If using the official ESPHome add-on, verify `esphome_dashboard_url` is set to `http://5c53de3a-esphome:6052`.
-3. If your ESPHome add-on has authentication turned on, make sure both `esphome_dashboard_username` and `esphome_dashboard_password` are filled in.
-4. Check the **Log** tab of this app for connection error details.
+### Error: `Failed to connect to ESPHome dashboard: All connection attempts failed`
+1. **Did you enable port 6052 in the ESPHome add-on?** Go to Home Assistant → Settings → Add-ons → ESPHome → Network card → enter `6052` into `6052/tcp` → click Save → restart ESPHome.
+2. **What URL are you using?**
+   - Use `http://127.0.0.1:6052` (recommended).
+   - Do **not** use `http://5c53de3a-esphome:6052` or `http://5c53de3b-esphome:6052` because the official ESPHome add-on runs with host networking and has no Docker bridge DNS entry.
+3. Test accessing `http://<HOME_ASSISTANT_IP>:6052` in your web browser from your PC/phone. If it doesn't open the ESPHome dashboard, port 6052 is not yet listening.

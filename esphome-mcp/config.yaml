@@ -1,7 +1,7 @@
 ---
 name: "ESPHome MCP"
 slug: "esphome_mcp"
-version: "2026.09.0"
+version: "2026.09.1"
 description: "Model Context Protocol (MCP) server for the ESPHome Device Builder dashboard to inspect, validate, edit, and flash ESPHome devices via AI"
 url: "https://github.com/frzzyone/ESPHome-MCP-HA-App"
 arch:
@@ -11,12 +11,9 @@ arch:
 startup: application
 boot: auto
 init: false
-ports:
-  8080/tcp: 8080
-ports_description:
-  8080/tcp: "MCP Streamable HTTP Endpoint"
+host_network: true
 options:
-  esphome_dashboard_url: "http://5c53de3a-esphome:6052"
+  esphome_dashboard_url: "http://127.0.0.1:6052"
   esphome_dashboard_username: ""
   esphome_dashboard_password: ""
   log_level: "INFO"

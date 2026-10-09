@@ -78,7 +78,14 @@ You can run ESPHome MCP directly as a **Home Assistant OS App (Add-on)**:
 
 [![Open your Home Assistant instance and show the add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Ffrzzyone%2FESPHome-MCP-HA-App)
 
-### Manual Installation
+### Prerequisites (Enable Port 6052 in ESPHome)
+
+By default, the official ESPHome add-on runs in Ingress-only mode and disables direct access to port `6052`:
+1. In Home Assistant, open **Settings** → **Add-ons** → **ESPHome**.
+2. Scroll to the **Network** section, type **`6052`** into the `6052/tcp` port field, and click **Save**.
+3. **Restart** the ESPHome add-on.
+
+### Installation
 
 1. In Home Assistant, navigate to **Settings** → **Add-ons** (or **Apps**) → **Add-on Store**.
 2. Click the three dots menu (**⋮**) in the top right corner and select **Repositories**.
@@ -87,12 +94,12 @@ You can run ESPHome MCP directly as a **Home Assistant OS App (Add-on)**:
    https://github.com/frzzyone/ESPHome-MCP-HA-App
    ```
 4. Find **ESPHome MCP** in the store and click **Install**.
-5. Go to the **Configuration** tab:
-   - If using the official ESPHome add-on on the same Home Assistant instance, leave `esphome_dashboard_url` at default:
+5. In the **Configuration** tab:
+   - For the local ESPHome add-on on the same machine, leave `esphome_dashboard_url` at:
      ```text
-     http://5c53de3a-esphome:6052
+     http://127.0.0.1:6052
      ```
-   - For an external dashboard, enter its address (e.g. `http://192.168.1.50:6052`).
+   - For an external dashboard on another host, enter its address (e.g. `http://192.168.1.50:6052`).
 6. Click **Start**!
 7. Point your MCP client (Claude Desktop, Cursor, etc.) to `http://<HOME_ASSISTANT_IP>:8080/mcp`.
 

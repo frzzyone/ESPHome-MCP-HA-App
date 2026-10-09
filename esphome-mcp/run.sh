@@ -31,8 +31,8 @@ if [ -f "$OPTIONS_FILE" ]; then
 fi
 
 if [ -z "$ESPHOME_DASHBOARD_URL" ]; then
-    echo "[WARN] ESPHOME_DASHBOARD_URL not set! Falling back to default: http://5c53de3a-esphome:6052"
-    export ESPHOME_DASHBOARD_URL="http://5c53de3a-esphome:6052"
+    echo "[WARN] ESPHOME_DASHBOARD_URL not set! Falling back to default: http://127.0.0.1:6052"
+    export ESPHOME_DASHBOARD_URL="http://127.0.0.1:6052"
 fi
 
 echo "[INFO] ESPHome Dashboard URL: ${ESPHOME_DASHBOARD_URL}"

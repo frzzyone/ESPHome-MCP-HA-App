@@ -2,7 +2,7 @@
 configuration:
   esphome_dashboard_url:
     name: "ESPHome Dashboard URL"
-    description: "URL of your ESPHome dashboard. Defaults to 'http://5c53de3a-esphome:6052' for the official Home Assistant ESPHome add-on on the internal network."
+    description: "URL of your ESPHome dashboard. Defaults to 'http://127.0.0.1:6052' when running on the same Home Assistant host (requires port 6052 enabled in the ESPHome add-on Network settings)."
   esphome_dashboard_username:
     name: "Dashboard Username"
     description: "Basic Auth username for the ESPHome dashboard (leave empty if authentication is not enabled)."
