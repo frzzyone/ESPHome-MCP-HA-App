@@ -1,0 +1,14 @@
+---
+configuration:
+  esphome_dashboard_url:
+    name: "ESPHome Dashboard URL"
+    description: "URL of your ESPHome dashboard. Defaults to 'http://5c53de3a-esphome:6052' for the official Home Assistant ESPHome add-on on the internal network."
+  esphome_dashboard_username:
+    name: "Dashboard Username"
+    description: "Basic Auth username for the ESPHome dashboard (leave empty if authentication is not enabled)."
+  esphome_dashboard_password:
+    name: "Dashboard Password"
+    description: "Basic Auth password for the ESPHome dashboard (leave empty if authentication is not enabled)."
+  log_level:
+    name: "Log Level"
+    description: "Server logging level (DEBUG, INFO, WARNING, or ERROR)."
