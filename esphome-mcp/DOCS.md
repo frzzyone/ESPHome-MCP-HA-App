@@ -12,13 +12,13 @@ If you are using the official **ESPHome Add-on** in Home Assistant OS:
 By default, the official ESPHome add-on runs in **Ingress-only** mode and its direct dashboard port `6052` is disabled. You must enable it so other services can connect:
 
 1. In Home Assistant, go to **Settings** → **Add-ons** (or **Apps**) → **ESPHome**.
-2. Scroll down to the **Network** card (on the Info or Configuration tab).
-3. In the port input field for `6052/tcp`, type **`6052`** (it is blank/disabled by default).
+2. Scroll down to the **Network** card, and in the port input field for `6052/tcp`, type **`6052`**.
+3. Go to the **Configuration** tab in the ESPHome add-on, and toggle ON **"Disable external authentication"** (or in YAML editor: `leave_front_door_open: true`).
 4. Click **Save** and then **Restart** the ESPHome add-on.
-5. *(Optional verification)* You should now be able to open `http://<HOME_ASSISTANT_IP>:6052` in your browser.
+5. *(Verification)* You should now be able to open `http://<HOME_ASSISTANT_IP>:6052` directly in your browser.
 
 > [!IMPORTANT]
-> If port `6052` is not enabled in the ESPHome add-on settings, any connection attempts to port 6052 will fail with `All connection attempts failed` or `Connection refused`.
+> The ESPHome Device Builder explicitly requires **"Disable external authentication"** to be turned on when port 6052 is mapped (`leave_front_door_open: true`), otherwise it will not bind port 6052 (`Public port 6052 NOT bound`).
 
 ### 2. Configuration Options
 

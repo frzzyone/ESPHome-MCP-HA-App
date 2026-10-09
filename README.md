@@ -82,8 +82,9 @@ You can run ESPHome MCP directly as a **Home Assistant OS App (Add-on)**:
 
 By default, the official ESPHome add-on runs in Ingress-only mode and disables direct access to port `6052`:
 1. In Home Assistant, open **Settings** → **Add-ons** → **ESPHome**.
-2. Scroll to the **Network** section, type **`6052`** into the `6052/tcp` port field, and click **Save**.
-3. **Restart** the ESPHome add-on.
+2. Scroll to the **Network** section, type **`6052`** into the `6052/tcp` port field.
+3. Switch to the **Configuration** tab, and toggle ON **"Disable external authentication"** (or in YAML editor: `leave_front_door_open: true`).
+4. Click **Save** and **Restart** the ESPHome add-on.
 
 ### Installation
 
